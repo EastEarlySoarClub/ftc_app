@@ -43,7 +43,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 @TeleOp(name="SOAR", group="Falcon")
-@Disabled
+//@Disabled
 public class SOAR extends OpMode {
 
     DcMotor motorRight;
