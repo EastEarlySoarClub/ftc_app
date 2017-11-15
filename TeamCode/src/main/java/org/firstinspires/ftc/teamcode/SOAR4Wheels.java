@@ -37,18 +37,16 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-
-
-
 
 
 @TeleOp(name="SOAR", group="Falcon")
 //@Disabled
-public class SOAR extends OpMode {
+public class SOAR4Wheels extends OpMode {
 
-    DcMotor motorRight;
-    DcMotor motorLeft;
+    DcMotor motor1;
+    DcMotor motor2;
+    DcMotor motor3;
+    DcMotor motor4;
     DcMotor scoop;
     Servo servoLeft;
     Servo servoRight;
@@ -63,9 +61,12 @@ public class SOAR extends OpMode {
 
     public void start() {
 
-        motorRight = hardwareMap.dcMotor.get("motorRight");
-        motorLeft = hardwareMap.dcMotor.get("motorLeft");
-        motorLeft.setDirection(DcMotor.Direction.REVERSE);
+        motor1 = hardwareMap.dcMotor.get("motor1");
+        motor2 = hardwareMap.dcMotor.get("motor2");
+        motor3 = hardwareMap.dcMotor.get("motor3");
+        motor4 = hardwareMap.dcMotor.get("motor4");
+        motor3.setDirection(DcMotor.Direction.REVERSE);
+        motor4.setDirection(DcMotor.Direction.REVERSE);
         scoop = hardwareMap.dcMotor.get("scoop");
         servoLeft = hardwareMap.get(Servo.class, "servoLeft");
         servoRight = hardwareMap.get(Servo.class, "servoRight");
@@ -81,20 +82,22 @@ public class SOAR extends OpMode {
     public void loop(){
 
 
-        float left = gamepad1.left_stick_y;
-        float right = -gamepad1.right_stick_y;
+        float forward = gamepad1.right_stick_y;
+        float sideways = -gamepad1.left_stick_x;
 
 
 
-        right = Range.clip(right, -1, 1);
-        left = Range.clip(left,-1,1);
+        forward = Range.clip(forward, -1, 1);
+        sideways = Range.clip(sideways,-1,1);
 
-        right = (float)scaleInput(right);
-        left = (float)scaleInput(left);
+        forward = (float)scaleInput(forward);
+        sideways = (float)scaleInput(sideways);
 
 
-        motorRight.setPower(right);
-        motorLeft.setPower(left);
+        motor1.setPower(forward);
+        motor3.setPower(forward);
+        motor2.setPower(sideways);
+        motor4.setPower(sideways);
 
 
         if (gamepad1.right_bumper)
