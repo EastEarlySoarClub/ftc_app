@@ -70,7 +70,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  */
 
 @Autonomous(name = "SOAR Autonomous", group = "Concept")
-@Disabled
+//@Disabled
 public class SOARAuto extends LinearOpMode {
 
     public static final String TAG = "Vuforia VuMark Sample";
