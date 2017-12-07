@@ -35,30 +35,25 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
-
-
-
-@TeleOp(name="SOAR", group="Falcon")
+@TeleOp(name="Talon", group="Falcon")
 //@Disabled
-public class SOAR extends OpMode {
+public class Talon extends OpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
-    /*
-    //DcMotor arm;
+    DcMotor arm;
+   
     Servo servoLeft;
     Servo servoRight;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
     double leftOpen=0;
-    double leftClose=1;
-    double rightOpen=0;
-    double rightClose=1;
-    */
+    double leftClose=0.5;
+    double rightOpen=1;
+    double rightClose=0.5;
 
 
 
@@ -68,11 +63,10 @@ public class SOAR extends OpMode {
         motorRight = hardwareMap.dcMotor.get("motorRight");
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
-        /*
-       arm = hardwareMap.dcMotor.get("arm");
+        arm = hardwareMap.dcMotor.get("arm");
+      
         servoLeft = hardwareMap.get(Servo.class, "servoLeft");
         servoRight = hardwareMap.get(Servo.class, "servoRight");
-        */
 
 
     }
@@ -97,21 +91,21 @@ public class SOAR extends OpMode {
         left = (float)scaleInput(left);
 
 
-        motorRight.setPower(0.8*right);
-        motorLeft.setPower(0.8*left);
-        /*
+        motorRight.setPower(right);
+        motorLeft.setPower(left);
+
 
         if (gamepad1.right_bumper)
         {
 
-            arm.setPower(.4);
+            arm.setPower(-.4);
 
         }
 
         if (gamepad1.left_bumper)
         {
 
-            arm.setPower(-.4);
+            arm.setPower(.4);
 
         }
         if (!gamepad1.left_bumper&&!gamepad1.right_bumper)
@@ -129,7 +123,6 @@ public class SOAR extends OpMode {
             servoLeft.setPosition(leftOpen);
             servoRight.setPosition(rightOpen);
         }
-        */
 
 
 
