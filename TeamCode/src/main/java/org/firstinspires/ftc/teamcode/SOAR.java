@@ -49,8 +49,7 @@ public class SOAR extends OpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
-    /*
-    //DcMotor arm;
+    DcMotor arm;
     Servo servoLeft;
     Servo servoRight;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
@@ -58,7 +57,7 @@ public class SOAR extends OpMode {
     double leftClose=1;
     double rightOpen=0;
     double rightClose=1;
-    */
+
 
 
 
@@ -68,11 +67,10 @@ public class SOAR extends OpMode {
         motorRight = hardwareMap.dcMotor.get("motorRight");
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
-        /*
-       arm = hardwareMap.dcMotor.get("arm");
+        arm = hardwareMap.dcMotor.get("arm");
         servoLeft = hardwareMap.get(Servo.class, "servoLeft");
         servoRight = hardwareMap.get(Servo.class, "servoRight");
-        */
+
 
 
     }
@@ -99,7 +97,7 @@ public class SOAR extends OpMode {
 
         motorRight.setPower(0.8*right);
         motorLeft.setPower(0.8*left);
-        /*
+
 
         if (gamepad1.right_bumper)
         {
@@ -129,7 +127,6 @@ public class SOAR extends OpMode {
             servoLeft.setPosition(leftOpen);
             servoRight.setPosition(rightOpen);
         }
-        */
 
 
 

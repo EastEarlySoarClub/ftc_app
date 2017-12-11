@@ -88,7 +88,7 @@ public class SOARLinearRed extends LinearOpMode {
 
         // get a reference to our ColorSensor object.
         colorSensor = hardwareMap.colorSensor.get("color");
-        colorSensor.enableLed(false);
+        colorSensor.enableLed(true);
         //lightSensor.enableLed(true);
 
         // Set the LED in the beginning
@@ -119,23 +119,32 @@ public class SOARLinearRed extends LinearOpMode {
 
         //Jewels
         //Move arm here
-        latch.setPosition(open);
+
+
+        //Show Color
+        telemetry.addData("Clear", colorSensor.alpha());
+        telemetry.addData("Red  ", colorSensor.red());
+        telemetry.addData("Green", colorSensor.green());
+        telemetry.addData("Blue ", colorSensor.blue());
+        telemetry.update();
+        sleep(1000);
+
         //Detect Color
-        if(colorSensor.red()>=4 ){
+        if(colorSensor.red()>colorSensor.blue()){
 
             telemetry.addData("Selected Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
             telemetry.update();
-            encoderDrive(0.5,-2,-2,5);
+            latch.setPosition(0);
             sleep(2000);
         }
 
         else {
             telemetry.addData("Selected Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
             telemetry.update();
-            encoderDrive(0.5,10,10,5);
+            latch.setPosition(1);
             sleep(5000);
         }
-        latch.setPosition(close);
+
             }
 
 

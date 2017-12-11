@@ -46,14 +46,19 @@ public class Talon extends OpMode {
     DcMotor motorRight;
     DcMotor motorLeft;
     DcMotor arm;
+    DcMotor extend;
+    DcMotor wrist;
    
     Servo servoLeft;
     Servo servoRight;
+    Servo claw;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
     double leftOpen=0;
     double leftClose=0.5;
     double rightOpen=1;
     double rightClose=0.5;
+    double clawOpen=0;
+    double clawClose=1;
 
 
 
@@ -64,6 +69,7 @@ public class Talon extends OpMode {
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         arm = hardwareMap.dcMotor.get("arm");
+        extend = hardwareMap.dcMotor.get("extend");
       
         servoLeft = hardwareMap.get(Servo.class, "servoLeft");
         servoRight = hardwareMap.get(Servo.class, "servoRight");
@@ -94,7 +100,7 @@ public class Talon extends OpMode {
         motorRight.setPower(right);
         motorLeft.setPower(left);
 
-
+        // use bumpers to move lift up/down
         if (gamepad1.right_bumper)
         {
 
@@ -123,6 +129,50 @@ public class Talon extends OpMode {
             servoLeft.setPosition(leftOpen);
             servoRight.setPosition(rightOpen);
         }
+        // Use gamepad Y & A to move the wrist
+        // Use gamepad B & X to open and close the claw
+        if (gamepad1.y) {
+            wrist.setPower(0.4);
+        }
+        else if (gamepad1.a) {
+            wrist.setPower(-0.4);
+        }
+        //dpad up & down to extend the arm
+        if (gamepad1.dpad_up)
+        {
+
+            extend.setPower(.4);
+
+        }
+
+        if (gamepad1.dpad_down)
+        {
+
+            extend.setPower(-.4);
+
+        }
+        if (!gamepad1.dpad_up&&!gamepad1.dpad_down)
+        {
+
+            extend.setPower(0);
+
+        }
+        // dpad left & right to open/close the claw
+        //dpad up & down to extend the arm
+        if (gamepad1.dpad_left)
+        {
+
+            claw.setPosition(clawOpen);
+
+        }
+
+        if (gamepad1.dpad_right)
+        {
+
+            claw.setPosition(clawClose);
+
+        }
+        
 
 
 
