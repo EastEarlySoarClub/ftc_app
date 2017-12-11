@@ -120,7 +120,8 @@ public class Talon extends OpMode {
             arm.setPower(0);
 
         }
-        // Use gamepad B & X to open and close the claw
+
+        // Use gamepad B & X to open/close the big blocks claws
         if (gamepad1.x) {
             servoLeft.setPosition(leftClose);
             servoRight.setPosition(rightClose);
@@ -129,36 +130,36 @@ public class Talon extends OpMode {
             servoLeft.setPosition(leftOpen);
             servoRight.setPosition(rightOpen);
         }
-        // Use gamepad Y & A to move the wrist
-        // Use gamepad B & X to open and close the claw
-        if (gamepad1.y) {
-            wrist.setPower(0.4);
-        }
-        else if (gamepad1.a) {
-            wrist.setPower(-0.4);
-        }
-        //dpad up & down to extend the arm
-        if (gamepad1.dpad_up)
+        // Y & A to extend the arm
+        if (gamepad1.y)
         {
 
             extend.setPower(.4);
 
         }
 
-        if (gamepad1.dpad_down)
+        if (gamepad1.a)
         {
 
             extend.setPower(-.4);
 
         }
-        if (!gamepad1.dpad_up&&!gamepad1.dpad_down)
+        if (!gamepad1.y &&!gamepad1.a)
         {
 
             extend.setPower(0);
 
         }
-        // dpad left & right to open/close the claw
-        //dpad up & down to extend the arm
+        // Use gamepad dpad up/down to move the wrist
+        if (gamepad1.dpad_up) {
+            wrist.setPower(0.4);
+        }
+        else if (gamepad1.dpad_down) {
+            wrist.setPower(-0.4);
+        }
+
+
+       // dpad left/right to open/close claw
         if (gamepad1.dpad_left)
         {
 
@@ -172,7 +173,7 @@ public class Talon extends OpMode {
             claw.setPosition(clawClose);
 
         }
-        
+
 
 
 
