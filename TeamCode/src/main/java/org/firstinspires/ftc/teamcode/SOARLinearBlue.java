@@ -4,10 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -36,9 +34,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="SOAR Linear Red", group="Pushbot")
+@Autonomous(name="SOAR Linear Blue", group="Pushbot")
 //@Disabled
-public class SOARLinearRed extends LinearOpMode {
+public class SOARLinearBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime     runtime = new ElapsedTime();
@@ -132,11 +130,11 @@ public class SOARLinearRed extends LinearOpMode {
         //Detect Color
         if(colorSensor.red()>colorSensor.blue()){
 
-            telemetry.addData("Selected Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+            telemetry.addData("Selected blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
             telemetry.update();
             latch.setPosition(0);
             sleep(2000);
-            encoderDrive(0.4,10,10,5);
+            encoderDrive(0.4,-10,-10,5);
         }
 
         else {
@@ -144,7 +142,7 @@ public class SOARLinearRed extends LinearOpMode {
             telemetry.update();
             latch.setPosition(1);
             sleep(5000);
-            encoderDrive(0.4,-10,-10,5);
+            encoderDrive(0.4,10,10,5);
         }
 
             }
