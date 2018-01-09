@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 @TeleOp(name="Talon v3", group="Falcon")
-@Disabled
+//@Disabled
 public class Talonv3 extends OpMode {
 
     DcMotor motorRight;
