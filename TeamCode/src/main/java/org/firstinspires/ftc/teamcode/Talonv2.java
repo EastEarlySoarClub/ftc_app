@@ -35,21 +35,21 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
-@TeleOp(name="Talon", group="Falcon")
+@TeleOp(name="Talon v2", group="Falcon")
 @Disabled
-public class Talon extends OpMode {
+public class Talonv2 extends OpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
     DcMotor arm;
     DcMotor extend;
     DcMotor wrist;
-   
+
     Servo servoLeft;
     Servo servoRight;
     Servo claw;
@@ -59,8 +59,8 @@ public class Talon extends OpMode {
     double rightOpen=1;
     double rightClose=0;
     //variables to open/close the claw
-    double clawOpen=0.5;
-    double clawClose=1;
+    double clawOpen=0;
+    double clawClose=0.5;
 
 
 
@@ -72,11 +72,9 @@ public class Talon extends OpMode {
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         arm = hardwareMap.dcMotor.get("arm");
         extend = hardwareMap.dcMotor.get("extend");
-        wrist = hardwareMap.dcMotor.get("wrist");
-      
+
         servoLeft = hardwareMap.get(Servo.class, "servoLeft");
         servoRight = hardwareMap.get(Servo.class, "servoRight");
-        claw = hardwareMap.get(Servo.class, "claw");
 
 
     }
@@ -91,18 +89,23 @@ public class Talon extends OpMode {
 
         float left = -gamepad1.left_stick_y;
         float right = -gamepad1.right_stick_y;
+        float right2 = -gamepad2.right_stick_y;
 
 
 
         right = Range.clip(right, -1, 1);
         left = Range.clip(left,-1,1);
+        right2 = Range.clip(right2, -1, 1);
 
         right = (float)scaleInput(right);
         left = (float)scaleInput(left);
+        right2 = (float)scaleInput(right2);
 
 
         motorRight.setPower(right);
         motorLeft.setPower(left);
+        wrist.setPower(right2);
+
 
         // use bumpers to move lift up/down
         if (gamepad1.right_bumper)
@@ -156,36 +159,44 @@ public class Talon extends OpMode {
 
         }
         // Use gamepad dpad up/down to move the wrist
-        if (gamepad1.dpad_up) {
-            wrist.setPower(0.4);
+        /*if (gamepad2.right_stick_x)
+        {
+
+            wrist.setPower(-.4);
+
         }
-        if (gamepad1.dpad_down) {
-            wrist.setPower(-0.4);
+
+        if (gamepad2.righ)
+        {
+
+            wrist.setPower(.4);
+
         }
-        else if (!gamepad1.dpad_up &&!gamepad1.dpad_down)
+        if (!gamepad2.left_bumper&&!gamepad1.right_bumper)
         {
 
             wrist.setPower(0);
 
         }
-
+*/
 
 
 
        // dpad left/right to open/close claw
-        if (gamepad1.dpad_left)
+        if (gamepad2.right_bumper)
         {
 
             claw.setPosition(clawOpen);
 
         }
 
-        if (gamepad1.dpad_right)
+        if (gamepad2.left_bumper)
         {
 
             claw.setPosition(clawClose);
 
         }
+
 
 
 

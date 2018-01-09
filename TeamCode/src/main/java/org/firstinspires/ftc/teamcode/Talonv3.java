@@ -35,32 +35,32 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
-@TeleOp(name="Talon", group="Falcon")
+@TeleOp(name="Talon v3", group="Falcon")
 @Disabled
-public class Talon extends OpMode {
+public class Talonv3 extends OpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
     DcMotor arm;
-    DcMotor extend;
-    DcMotor wrist;
-   
+    DcMotor lift;
+
     Servo servoLeft;
     Servo servoRight;
     Servo claw;
+    Servo colorServo;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
     double leftOpen=0;
     double leftClose=1;
     double rightOpen=1;
     double rightClose=0;
     //variables to open/close the claw
-    double clawOpen=0.5;
-    double clawClose=1;
+    double clawOpen=0;
+    double clawClose=0.5;
 
 
 
@@ -71,11 +71,12 @@ public class Talon extends OpMode {
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         arm = hardwareMap.dcMotor.get("arm");
-        extend = hardwareMap.dcMotor.get("extend");
-        wrist = hardwareMap.dcMotor.get("wrist");
-      
-        servoLeft = hardwareMap.get(Servo.class, "servoLeft");
-        servoRight = hardwareMap.get(Servo.class, "servoRight");
+        lift = hardwareMap.dcMotor.get("lift");
+
+
+        servoLeft = hardwareMap.get(Servo.class, "liftLeft");
+        servoRight = hardwareMap.get(Servo.class, "liftRight");
+        colorServo = hardwareMap.get(Servo.class, "colorServo");
         claw = hardwareMap.get(Servo.class, "claw");
 
 
@@ -91,101 +92,100 @@ public class Talon extends OpMode {
 
         float left = -gamepad1.left_stick_y;
         float right = -gamepad1.right_stick_y;
+        float right2 = -gamepad2.right_stick_y;
 
 
 
         right = Range.clip(right, -1, 1);
         left = Range.clip(left,-1,1);
+        right2 = Range.clip(right2, -1, 1);
 
         right = (float)scaleInput(right);
         left = (float)scaleInput(left);
+        right2 = (float)scaleInput(right2);
 
 
         motorRight.setPower(right);
         motorLeft.setPower(left);
 
-        // use bumpers to move lift up/down
-        if (gamepad1.right_bumper)
+
+
+        // use triggers to move lift up/down
+        if (gamepad1.right_trigger>0.7)
+        {
+
+            lift.setPower(-.4);
+
+        }
+
+        if (gamepad1.left_trigger>0.7)
+        {
+
+            lift.setPower(.4);
+
+        }
+
+        // Use gamepad bumpers to open/close lift
+        if (gamepad1.right_bumper) {
+            servoLeft.setPosition(leftClose);
+            servoRight.setPosition(rightClose);
+        }
+        else if (gamepad1.left_bumper) {
+            servoLeft.setPosition(leftOpen);
+            servoRight.setPosition(rightOpen);
+        }
+
+        // Y & B to extend the arm
+        if (gamepad1.y)
+        {
+
+            colorServo.setPosition(0);
+
+        }
+
+        if (gamepad1.b)
+        {
+
+            colorServo.setPosition(1);
+
+        }
+
+        // Use gamepad dpad up/down to move the arm
+        if (gamepad1.dpad_down)
         {
 
             arm.setPower(-.4);
 
         }
 
-        if (gamepad1.left_bumper)
+        if (gamepad1.dpad_up)
         {
 
             arm.setPower(.4);
 
         }
-        if (!gamepad1.left_bumper&&!gamepad1.right_bumper)
+        if (!gamepad1.dpad_down&&!gamepad1.dpad_up)
         {
 
             arm.setPower(0);
 
         }
 
-        // Use gamepad B & X to open/close the big blocks claws
-        if (gamepad1.x) {
-            servoLeft.setPosition(leftClose);
-            servoRight.setPosition(rightClose);
-        }
-        else if (gamepad1.b) {
-            servoLeft.setPosition(leftOpen);
-            servoRight.setPosition(rightOpen);
-        }
-
-        // Y & A to extend the arm
-        if (gamepad1.y)
-        {
-
-            extend.setPower(.4);
-
-        }
-
-        if (gamepad1.a)
-        {
-
-            extend.setPower(-.4);
-
-        }
-        if (!gamepad1.y &&!gamepad1.a)
-        {
-
-            extend.setPower(0);
-
-        }
-        // Use gamepad dpad up/down to move the wrist
-        if (gamepad1.dpad_up) {
-            wrist.setPower(0.4);
-        }
-        if (gamepad1.dpad_down) {
-            wrist.setPower(-0.4);
-        }
-        else if (!gamepad1.dpad_up &&!gamepad1.dpad_down)
-        {
-
-            wrist.setPower(0);
-
-        }
-
-
-
-
        // dpad left/right to open/close claw
-        if (gamepad1.dpad_left)
+        if (gamepad1.x)
         {
 
             claw.setPosition(clawOpen);
 
         }
 
-        if (gamepad1.dpad_right)
+        if (gamepad1.a)
         {
 
             claw.setPosition(clawClose);
 
         }
+
 
 
 
