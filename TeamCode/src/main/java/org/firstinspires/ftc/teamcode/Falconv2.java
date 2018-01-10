@@ -32,26 +32,26 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
-@TeleOp(name="Talon v3", group="Falcon")
-//@Disabled
-public class Talonv3 extends OpMode {
+@TeleOp(name="Falcon v2", group="Falcon")
+@Disabled
+public class Falconv2 extends OpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
-    DcMotor arm;
     DcMotor lift;
+
+
 
     Servo servoLeft;
     Servo servoRight;
-    Servo claw;
     Servo colorServo;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
     double leftOpen=0;
@@ -70,14 +70,12 @@ public class Talonv3 extends OpMode {
         motorRight = hardwareMap.dcMotor.get("motorRight");
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
-        arm = hardwareMap.dcMotor.get("arm");
         lift = hardwareMap.dcMotor.get("lift");
 
 
-        servoLeft = hardwareMap.get(Servo.class, "liftLeft");
-        servoRight = hardwareMap.get(Servo.class, "liftRight");
+        servoLeft = hardwareMap.get(Servo.class, "servoLeft");
+        servoRight = hardwareMap.get(Servo.class, "servoRight");
         colorServo = hardwareMap.get(Servo.class, "colorServo");
-        claw = hardwareMap.get(Servo.class, "claw");
 
 
     }
@@ -93,82 +91,83 @@ public class Talonv3 extends OpMode {
         float left = -gamepad1.left_stick_y;
         float right = -gamepad1.right_stick_y;
 
+
+
+
         right = Range.clip(right, -1, 1);
         left = Range.clip(left,-1,1);
+
 
         right = (float)scaleInput(right);
         left = (float)scaleInput(left);
 
+
+
         motorRight.setPower(right);
         motorLeft.setPower(left);
 
-        // use dpad up/down to move lift up/down
-        if (gamepad1.dpad_up)
+
+
+        // use bumpers to move lift up/down
+        if (gamepad1.right_bumper)
         {
+
             lift.setPower(-.4);
+
         }
 
-        if (gamepad1.dpad_down)
+        if (gamepad1.left_bumper)
         {
+
             lift.setPower(.4);
+
         }
-        if (!gamepad1.dpad_down&&!gamepad1.dpad_up)
+        if (!gamepad1.left_bumper&&!gamepad1.right_bumper)
         {
+
             lift.setPower(0);
+
         }
 
-        // Use gamepad bumpers to open/close lift
-        if (gamepad1.right_bumper) {
+        // Use gamepad B & X to open/close the big blocks claws
+        if (gamepad1.x) {
             servoLeft.setPosition(leftClose);
             servoRight.setPosition(rightClose);
         }
-        else if (gamepad1.left_bumper) {
+        else if (gamepad1.b) {
             servoLeft.setPosition(leftOpen);
             servoRight.setPosition(rightOpen);
         }
 
-        // Y & B to extend the arm
+
+
+
+        // Y & B to extend the colorServo
         if (gamepad1.y)
         {
-            colorServo.setPosition(0.3);
+
+            colorServo.setPosition(0);
+
         }
 
         if (gamepad1.b)
         {
+
             colorServo.setPosition(1);
+
         }
 
-        // Use gamepad dpad right/left to move the arm
-        if (gamepad1.dpad_left)
-        {
-            arm.setPower(-.2);
-        }
 
-        if (gamepad1.dpad_right)
-        {
-            arm.setPower(.2);
-        }
-        if (!gamepad1.dpad_left&&!gamepad1.dpad_right)
-        {
-            arm.setPower(0);
-        }
 
-       // dpad left/right to open/close claw
-        if (gamepad1.x)
-        {
-            claw.setPosition(0);
-        }
 
-        if (gamepad1.a)
-        {
-            claw.setPosition(1);
-        }
+
     }
 
 
 
     @Override
     public void stop(){
+
 
     }
     double scaleInput(double dVal)  {
