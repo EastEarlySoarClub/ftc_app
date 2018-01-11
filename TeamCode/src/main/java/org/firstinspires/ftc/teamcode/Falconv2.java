@@ -91,42 +91,29 @@ public class Falconv2 extends OpMode {
         float left = -gamepad1.left_stick_y;
         float right = -gamepad1.right_stick_y;
 
-
-
-
         right = Range.clip(right, -1, 1);
         left = Range.clip(left,-1,1);
-
 
         right = (float)scaleInput(right);
         left = (float)scaleInput(left);
 
 
-
         motorRight.setPower(right);
         motorLeft.setPower(left);
-
-
 
         // use bumpers to move lift up/down
         if (gamepad1.right_bumper)
         {
-
             lift.setPower(-.4);
-
         }
 
         if (gamepad1.left_bumper)
         {
-
             lift.setPower(.4);
-
         }
         if (!gamepad1.left_bumper&&!gamepad1.right_bumper)
         {
-
             lift.setPower(0);
-
         }
 
         // Use gamepad B & X to open/close the big blocks claws
@@ -139,27 +126,16 @@ public class Falconv2 extends OpMode {
             servoRight.setPosition(rightOpen);
         }
 
-
-
-
-        // Y & B to extend the colorServo
+        // Y & A to extend the colorServo
         if (gamepad1.y)
         {
-
-            colorServo.setPosition(0);
-
+           colorServo.setPosition(0);
         }
 
-        if (gamepad1.b)
+        if (gamepad1.a)
         {
-
             colorServo.setPosition(1);
-
         }
-
-
-
-
 
     }
 
