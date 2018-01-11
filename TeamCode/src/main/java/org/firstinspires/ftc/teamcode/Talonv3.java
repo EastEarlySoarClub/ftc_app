@@ -34,7 +34,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -53,6 +55,8 @@ public class Talonv3 extends OpMode {
     Servo servoRight;
     Servo claw;
     Servo colorServo;
+
+    ColorSensor colorSensor;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
     double leftOpen=0;
     double leftClose=1;
@@ -78,6 +82,8 @@ public class Talonv3 extends OpMode {
         servoRight = hardwareMap.get(Servo.class, "liftRight");
         colorServo = hardwareMap.get(Servo.class, "colorServo");
         claw = hardwareMap.get(Servo.class, "claw");
+
+        colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
 
 
     }
@@ -141,12 +147,12 @@ public class Talonv3 extends OpMode {
         // Use gamepad dpad right/left to move the arm
         if (gamepad1.dpad_left)
         {
-            arm.setPower(-.2);
+            arm.setPower(-.4);
         }
 
         if (gamepad1.dpad_right)
         {
-            arm.setPower(.2);
+            arm.setPower(.4);
         }
         if (!gamepad1.dpad_left&&!gamepad1.dpad_right)
         {
@@ -163,6 +169,8 @@ public class Talonv3 extends OpMode {
         {
             claw.setPosition(1);
         }
+        telemetry.addData("Sensor:", "red %d, blue%d",colorSensor.red(),colorSensor.blue());
+        telemetry.update();
     }
 
 

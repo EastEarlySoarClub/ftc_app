@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 @TeleOp(name="Falcon v2", group="Falcon")
-@Disabled
+//@Disabled
 public class Falconv2 extends OpMode {
 
     DcMotor motorRight;
