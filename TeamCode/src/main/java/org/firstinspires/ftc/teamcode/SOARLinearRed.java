@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 @Autonomous(name="SOAR Linear Red", group="Pushbot")
-//@Disabled
+@Disabled
 public class SOARLinearRed extends LinearOpMode {
 
     /* Declare OpMode members. */
