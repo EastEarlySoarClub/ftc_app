@@ -37,10 +37,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 @TeleOp(name="Falcon", group="Falcon")
-//@Disabled
+@Disabled
 public class Falcon extends OpMode {
 
     DcMotor motorRight;
@@ -53,9 +54,9 @@ public class Falcon extends OpMode {
     Servo servoRight;
     Servo claw;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
-    double leftOpen=0;
+    double leftOpen=0.2;
     double leftClose=0.5;
-    double rightOpen=1;
+    double rightOpen=0.8;
     double rightClose=0.5;
     //variables to open/close the claw
     double clawOpen=0;

@@ -50,10 +50,10 @@ public class G3 extends OpMode {
     Servo servoLeft;
     Servo servoRight;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
-    double leftOpen=1;
-    double leftClose=0;
-    double rightOpen=0;
-    double rightClose=1;
+    double leftOpen=0.7;
+    double leftClose=0.2;
+    double rightOpen=0.2;
+    double rightClose=0.5;
 
 
 
@@ -115,7 +115,8 @@ public class G3 extends OpMode {
 
         }
         */
-        // Use gamepad B & X to open and close the claw
+
+        // Use gamepad B & X to open/close the big blocks claws
         if (gamepad1.x) {
             servoLeft.setPosition(leftClose);
             servoRight.setPosition(rightClose);
@@ -124,7 +125,6 @@ public class G3 extends OpMode {
             servoLeft.setPosition(leftOpen);
             servoRight.setPosition(rightOpen);
         }
-
 
 
 

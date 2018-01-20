@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="SOAR Linear Red 18", group="Pushbot")
+@TeleOp(name="SOAR Linear Blue 18", group="Pushbot")
 //@Disabled
 public class SOARLinearBlue18 extends LinearOpMode {
 
@@ -67,6 +67,14 @@ public class SOARLinearBlue18 extends LinearOpMode {
     Servo colorServo;
 
 
+    double leftOpen=0;
+    double leftClose=1;
+    double rightOpen=1;
+    double rightClose=0;
+    //variables to open/close the claw
+    double clawOpen=0;
+    double clawClose=0.5;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -78,6 +86,7 @@ public class SOARLinearBlue18 extends LinearOpMode {
         motorRight = hardwareMap.dcMotor.get("motorRight");
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         colorServo = hardwareMap.get(Servo.class, "colorServo");
+
 
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
 
@@ -98,6 +107,7 @@ public class SOARLinearBlue18 extends LinearOpMode {
         motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
+
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
                 motorLeft.getCurrentPosition(),
@@ -116,25 +126,30 @@ public class SOARLinearBlue18 extends LinearOpMode {
         telemetry.addData("Green", colorSensor.green());
         telemetry.addData("Blue ", colorSensor.blue());
         telemetry.update();
-        sleep(1000);
+        sleep(500);
+        colorServo.setPosition(0.7);
 
         //Detect Color
+        //If I'm blue and detect blue, move backwards
         if(colorSensor.blue()>colorSensor.red()){
 
             telemetry.addData("Selected Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
             telemetry.update();
-            colorServo.setPosition(0);
-            sleep(2000);
-            encoderDrive(0.4,10,10,5);
-        }
 
-        else {
+            sleep(500);
+            encoderDrive(0.4,10,10,5);
+
+        }
+        // If I'm blue and I detect red, move forward
+        else if(colorSensor.red()>colorSensor.blue()) {
             telemetry.addData("Selected Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
             telemetry.update();
-            colorServo.setPosition(1);
-            sleep(5000);
+
+            sleep(500);
             encoderDrive(0.4,-10,-10,5);
+
         }
+        colorServo.setPosition(0);
 
             }
     /*
@@ -195,7 +210,7 @@ public class SOARLinearBlue18 extends LinearOpMode {
             motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(2000);   // optional pause after each move
+            sleep(500);   // optional pause after each move
         }
     }
     public void driveToPosition(double speed,

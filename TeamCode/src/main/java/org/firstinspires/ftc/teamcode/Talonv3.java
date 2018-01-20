@@ -108,6 +108,7 @@ public class Talonv3 extends OpMode {
         motorRight.setPower(right);
         motorLeft.setPower(left);
 
+
         // use dpad up/down to move lift up/down
         if (gamepad1.dpad_up)
         {

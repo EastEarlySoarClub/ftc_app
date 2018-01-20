@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -38,9 +34,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="SOAR Linear Red 18", group="Pushbot")
+@Autonomous(name="G3Linear18 Blue", group="Pushbot")
 //@Disabled
-public class SOARLinearRed18 extends LinearOpMode {
+public class G3Linear18Blue extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime     runtime = new ElapsedTime();
@@ -59,26 +55,16 @@ public class SOARLinearRed18 extends LinearOpMode {
     static final double gray = 0.1;
     private ColorSensor colorSensor;
     double open=1;
-    double close=0.3;
+    double close=0.5;
     //OpticalDistanceSensor   lightSensor;
 
 
 
     DcMotor motorRight;
     DcMotor motorLeft;
-    Servo colorServo;
-    Servo servoLeft;
-    Servo servoRight;
-
-
-    //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
-    double leftOpen=0;
-    double leftClose=1;
-    double rightOpen=1;
-    double rightClose=0;
-    //variables to open/close the claw
-    double clawOpen=0;
-    double clawClose=0.5;
+    //Servo latch;
+   // DcMotor scoop;
+   // DcMotor shoot;
 
 
     @Override
@@ -90,13 +76,7 @@ public class SOARLinearRed18 extends LinearOpMode {
          */
         motorRight = hardwareMap.dcMotor.get("motorRight");
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
-        colorServo = hardwareMap.get(Servo.class, "colorServo");
-
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
-
-        // get a reference to our ColorSensor object.
-        colorSensor = hardwareMap.colorSensor.get("colorSensor");
-        colorSensor.enableLed(true);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -104,14 +84,10 @@ public class SOARLinearRed18 extends LinearOpMode {
 
         motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         idle();
 
         motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
                 motorLeft.getCurrentPosition(),
@@ -120,37 +96,14 @@ public class SOARLinearRed18 extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
-
-
-
-        //Show Color
-        telemetry.addData("Clear", colorSensor.alpha());
-        telemetry.addData("Red  ", colorSensor.red());
-        telemetry.addData("Green", colorSensor.green());
-        telemetry.addData("Blue ", colorSensor.blue());
-        telemetry.update();
-        sleep(500);
-        colorServo.setPosition(0.7);
-
-        //Detect Color
-        if(colorSensor.red()>colorSensor.blue()){
-
-            telemetry.addData("Selected Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
-            telemetry.update();
-            sleep(500);
-            encoderDrive(0.4,10,10,5);
-        }
-
-        else if (colorSensor.blue()>colorSensor.red()) {
-            telemetry.addData("Selected Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
-            telemetry.update();
-            sleep(500);
-            encoderDrive(0.4,-10,-10,5);
-        }
-        colorServo.setPosition(0);
-
+        encoderDrive(0.4,32,32, 5);
+        //Rotate
+        encoderDrive(0.4,0,20, 5);
             }
+
+
+
+
     /*
      *  Method to perform a relative move, based on encoder counts.
      *  Encoders are not reset as the move is based on the current position.
@@ -209,7 +162,7 @@ public class SOARLinearRed18 extends LinearOpMode {
             motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(500);   // optional pause after each move
+            sleep(2000);   // optional pause after each move
         }
     }
     public void driveToPosition(double speed,

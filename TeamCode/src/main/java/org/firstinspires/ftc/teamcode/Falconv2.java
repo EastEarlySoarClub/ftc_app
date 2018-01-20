@@ -54,10 +54,10 @@ public class Falconv2 extends OpMode {
     Servo servoRight;
     Servo colorServo;
     //variables to set the claw open/close (need to be adjusted) "1" means 180 degree rotation
-    double leftOpen=0;
-    double leftClose=1;
-    double rightOpen=1;
-    double rightClose=0;
+    double leftOpen=0.5;
+    double leftClose=0;
+    double rightOpen=0.5;
+    double rightClose=1;
     //variables to open/close the claw
     double clawOpen=0;
     double clawClose=0.5;
@@ -134,7 +134,7 @@ public class Falconv2 extends OpMode {
 
         if (gamepad1.a)
         {
-            colorServo.setPosition(1);
+            colorServo.setPosition(0.5);
         }
 
     }
