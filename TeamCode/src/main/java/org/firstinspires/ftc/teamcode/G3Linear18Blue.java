@@ -96,9 +96,9 @@ public class G3Linear18Blue extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        encoderDrive(0.4,32,32, 5);
+        encoderDrive(0.4,24,24, 5);
         //Rotate
-        encoderDrive(0.4,0,20, 5);
+        encoderDrive(0.4,-2,-2, 5);
             }
 
 
@@ -162,7 +162,7 @@ public class G3Linear18Blue extends LinearOpMode {
             motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(2000);   // optional pause after each move
+            sleep(500);   // optional pause after each move
         }
     }
     public void driveToPosition(double speed,
@@ -210,7 +210,7 @@ public class G3Linear18Blue extends LinearOpMode {
             motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(2000);   // optional pause after each move
+            sleep(500);   // optional pause after each move
         }
     }
 

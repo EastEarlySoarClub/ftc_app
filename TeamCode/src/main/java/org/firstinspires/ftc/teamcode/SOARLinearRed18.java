@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
 /**
@@ -38,7 +39,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="SOAR Linear Red 18", group="Pushbot")
+@Autonomous(name="SOAR Linear Red 18", group="Pushbot")
 //@Disabled
 public class SOARLinearRed18 extends LinearOpMode {
 
@@ -131,7 +132,7 @@ public class SOARLinearRed18 extends LinearOpMode {
         telemetry.addData("Blue ", colorSensor.blue());
         telemetry.update();
         sleep(500);
-        colorServo.setPosition(0.7);
+        colorServo.setPosition(0.2);
 
         //Detect Color
         if(colorSensor.red()>colorSensor.blue()){
@@ -148,7 +149,8 @@ public class SOARLinearRed18 extends LinearOpMode {
             sleep(500);
             encoderDrive(0.4,-10,-10,5);
         }
-        colorServo.setPosition(0);
+        sleep(2000);
+        colorServo.setPosition(1);
 
             }
     /*

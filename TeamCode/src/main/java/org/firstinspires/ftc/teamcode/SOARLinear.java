@@ -63,9 +63,7 @@ public class SOARLinear extends LinearOpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
-    //Servo latch;
-   // DcMotor scoop;
-   // DcMotor shoot;
+
 
 
     @Override
@@ -97,7 +95,11 @@ public class SOARLinear extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        encoderDrive(0.4,32,32, 5);
+        // Move forward 24 inch
+        encoderDrive(0.4,48,48, 5);
+        sleep(500);
+        //move back 2 inch
+        encoderDrive(0.4,-4,-4, 5);
             }
 
 
