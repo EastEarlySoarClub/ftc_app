@@ -93,26 +93,26 @@ public class ServoTest extends OpMode {
 
         // Use gamepad bumpers to open/close lift
         if (gamepad1.right_bumper) {
-            leftClose=leftClose-0.1
-            rightClose=rightClose-0.1
+            leftClose=leftClose-0.1;
+            rightClose=rightClose-0.1;
             servoLeft.setPosition(leftClose);
             servoRight.setPosition(rightClose);
-            telemetry.addData("Claw:", "LeftClose%d, RightClose%d",leftClose,rightClose);
+            telemetry.addData("Lift:", "LeftClose%d, RightClose%d",leftClose,rightClose);
             telemetry.update();
         }
         else if (gamepad1.left_bumper) {
-            leftOpen=leftOpen+0.1
-            rightOpen=rightOpen+0.1
+            leftOpen=leftOpen+0.1;
+            rightOpen=rightOpen+0.1;
             servoLeft.setPosition(leftOpen);
             servoRight.setPosition(rightOpen);
-            telemetry.addData("Claw:", "Left%d, Right%d",leftOpen,rightOpen);
+            telemetry.addData("Lift:", "LeftOpen%d, RightOpen%d",leftOpen,rightOpen);
             telemetry.update();
         }
 
         // Y & B to extend the arm
         if (gamepad1.y)
         {
-            servoPosition=servoPosition=0.1;
+
             colorServo.setPosition(0.3);
         }
 
