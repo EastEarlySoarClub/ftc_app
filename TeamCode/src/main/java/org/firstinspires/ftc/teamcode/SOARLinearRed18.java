@@ -59,15 +59,19 @@ public class SOARLinearRed18 extends LinearOpMode {
     static final double     WHITE_THRESHOLD = 0.2;
     static final double gray = 0.1;
     private ColorSensor colorSensor;
+    //private ColorSensor colorSensorRight;
+    //private ColorSensor colorSensorLeft;
     double open=1;
     double close=0.3;
-    //OpticalDistanceSensor   lightSensor;
+
 
 
 
     DcMotor motorRight;
     DcMotor motorLeft;
     Servo colorServo;
+    //Servo colorServoLeft;
+    //Servo colorServoRight;
     Servo servoLeft;
     Servo servoRight;
 
@@ -92,12 +96,21 @@ public class SOARLinearRed18 extends LinearOpMode {
         motorRight = hardwareMap.dcMotor.get("motorRight");
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         colorServo = hardwareMap.get(Servo.class, "colorServo");
+        //colorServoLeft = hardwareMap.get(Servo.class, "colorServoLeft");
+        //colorServoRight = hardwareMap.get(Servo.class, "colorServoRight");
+
 
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
 
         // get a reference to our ColorSensor object.
         colorSensor = hardwareMap.colorSensor.get("colorSensor");
         colorSensor.enableLed(true);
+        /*
+        colorSensorLeft = hardwareMap.colorSensor.get("colorSensorLeft");
+        colorSensorLeft.enableLed(true);
+        colorSensorRight = hardwareMap.colorSensor.get("colorSensorRight");
+        colorSensorRight.enableLed(true);
+        */
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -133,6 +146,15 @@ public class SOARLinearRed18 extends LinearOpMode {
         telemetry.update();
         sleep(500);
         colorServo.setPosition(0.2);
+        /*
+        telemetry.addData("Clear", colorSensorRight.alpha());
+        telemetry.addData("Red  ", colorSensorRight.red());
+        telemetry.addData("Green", colorSensorRight.green());
+        telemetry.addData("Blue ", colorSensorRight.blue());
+        telemetry.update();
+        sleep(500);
+        colorServoRight.setPosition(0.2);
+        */
 
         //Detect Color
         if(colorSensor.red()>colorSensor.blue()){
@@ -151,6 +173,26 @@ public class SOARLinearRed18 extends LinearOpMode {
         }
         sleep(2000);
         colorServo.setPosition(1);
+        /*
+        //Detect Color
+        if(colorSensorRight.red()>colorSensorRight.blue()){
+
+            telemetry.addData("Selected Red", "Red %d Blue %d Green %d",colorSensorRight.red(),colorSensorRight.blue(),colorSensorRight.green());
+            telemetry.update();
+            sleep(500);
+            encoderDrive(0.4,10,10,5);
+        }
+
+        else if (colorSensorRight.blue()>colorSensorRight.red()) {
+            telemetry.addData("Selected Blue", "Red %d Blue %d Green %d",colorSensorRight.red(),colorSensorRight.blue(),colorSensorRight.green());
+            telemetry.update();
+            sleep(500);
+            encoderDrive(0.4,-10,-10,5);
+        }
+        sleep(2000);
+        colorServoRight.setPosition(1);
+         */
+
 
             }
     /*

@@ -71,8 +71,8 @@ public class ServoTest extends OpMode {
 
 
 
-        servoLeft = hardwareMap.get(Servo.class, "liftLeft");
-        servoRight = hardwareMap.get(Servo.class, "liftRight");
+        servoLeft = hardwareMap.get(Servo.class, "servoLeft");
+        servoRight = hardwareMap.get(Servo.class, "servoRight");
         colorServo = hardwareMap.get(Servo.class, "colorServo");
         claw = hardwareMap.get(Servo.class, "claw");
 
